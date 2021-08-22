@@ -27,7 +27,7 @@ fn main() {
         })
         .collect::<Vec<_>>();
     let code = quote::quote! {
-        static SUBJECTS: Lazy<Vec<Subject>> = Lazy::new(|| vec![
+        static SUBJECTS: once_cell::sync::Lazy<Vec<Subject>> = once_cell::sync::Lazy::new(|| vec![
             #(#subjects ,)*
         ]);
     };

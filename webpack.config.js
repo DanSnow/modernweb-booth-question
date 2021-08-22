@@ -1,38 +1,47 @@
 const path = require('path')
 const WasmPackPlugin = require('@wasm-tool/wasm-pack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 
 const dist = path.resolve(__dirname, 'dist')
 
 module.exports = {
-  mode: 'production',
+  mode: 'development',
   devtool: false,
   entry: {
-    index: './js/index.js'
+    index: './js/index.js',
   },
   output: {
     path: dist,
-    filename: '[name].js'
-  },
-  devServer: {
-    contentBase: dist
+    filename: '[name].js',
   },
   module: {
     rules: [
       {
         test: /\.css$/,
-        use: [{ loader: 'style-loader' }, { loader: 'css-loader' }]
-      }
-    ]
+        use: [MiniCssExtractPlugin.loader, 'css-loader'],
+      },
+    ],
+  },
+  optimization: {
+    minimizer: ['...', new CssMinimizerPlugin()],
   },
   plugins: [
+    new MiniCssExtractPlugin(),
+
     new HtmlWebpackPlugin({
-      template: 'index.html'
+      template: 'index.html',
     }),
 
     new WasmPackPlugin({
-      crateDirectory: __dirname
-      // extraArgs: '--out-name index'
-    })
-  ]
+      crateDirectory: __dirname,
+    }),
+  ],
+  cache: {
+    type: 'filesystem',
+  },
+  experiments: {
+    asyncWebAssembly: true,
+  },
 }
