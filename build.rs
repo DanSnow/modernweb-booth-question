@@ -20,8 +20,8 @@ fn main() {
         .map(|Subject { question, answer }| {
             quote::quote! {
                 Subject {
-                    question: #question .to_owned(),
-                    answer: #answer .to_owned(),
+                    question: #question ,
+                    answer: #answer ,
                 }
             }
         })

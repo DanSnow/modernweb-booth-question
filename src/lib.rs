@@ -4,8 +4,8 @@ use wasm_bindgen::prelude::*;
 
 #[derive(Debug, Default)]
 pub struct Subject {
-    question: String,
-    answer: String,
+    question: &'static str,
+    answer: &'static str,
 }
 
 include!(concat!(env!("OUT_DIR"), "/subjects.rs"));

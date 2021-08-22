@@ -1,7 +1,7 @@
 import 'xterm/css/xterm.css'
 
 import { Terminal } from 'xterm'
-import {start} from './game'
+import { start } from './game'
 
 const term = new Terminal()
 

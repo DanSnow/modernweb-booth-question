@@ -1,16 +1,14 @@
-import question from '../question.json'
-
 /**
- * 
- * @param {import('xterm').Terminal} term 
+ * start game
+ * @param {import('xterm').Terminal} term
  */
 export async function start(term) {
   let ended = false
   const { Game } = await import('../pkg/index.js')
-  const game = new Game(question.length)
+  const game = new Game()
   term.write(game.render())
   let buf = ''
-  term.onData(data => {
+  term.onData((data) => {
     if (ended) {
       return
     }
